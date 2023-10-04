@@ -1,2 +1,2 @@
 # Leetcode_prob
-Here all the problem solutions are present solved by me 
+Here all the leetcode problem solutions are available  
