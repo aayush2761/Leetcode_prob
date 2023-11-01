@@ -12,7 +12,7 @@ public:
 
             }
         }
-        d.insert(d.begin(),1);
+       d.insert(d.begin(),1);
         return d;
        }
 };
