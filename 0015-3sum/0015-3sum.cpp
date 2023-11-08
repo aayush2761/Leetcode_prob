@@ -1,28 +1,41 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-       int target = 0;
-        sort(nums.begin(), nums.end());
-        set<vector<int>> s;
-        vector<vector<int>> output;
-        for (int i = 0; i < nums.size(); i++){
-            int j = i + 1;
-            int k = nums.size() - 1;
-            while (j < k) {
-                int sum = nums[i] + nums[j] + nums[k];
-                if (sum == target) {
-                    s.insert({nums[i], nums[j], nums[k]});
-                    j++;
-                    k--;
-                } else if (sum < target) {
-                    j++;
+        sort(nums.begin() , nums.end());    
+        if(nums.size() < 3){    
+            return {};
+        }
+        if(nums[0] > 0){       
+            return {};
+        }
+        vector<vector<int>> answer;
+        for(int i = 0 ; i < nums.size() ; ++i){     
+            if(nums[i] > 0){     
+                break;
+            }
+            if(i > 0 && nums[i] == nums[i - 1]){    
+                continue;
+            }
+            int low = i + 1 , high = nums.size() - 1;  
+            int sum = 0;
+            while(low < high){                          
+                sum = nums[i] + nums[low] + nums[high];
+                if(sum > 0){   
+                    high--;
+                } else if(sum < 0){ 
+                    low++;
                 } else {
-                    k--;
+                    answer.push_back({nums[i] , nums[low] , nums[high]});  
+                    int last_low_occurence = nums[low] , last_high_occurence = nums[high]; 
+                    while(low < high && nums[low] == last_low_occurence){   
+                        low++;
+                    }
+                    while(low < high && nums[high] == last_high_occurence){
+                        high--;
+                    }
                 }
             }
         }
-        for(auto triplets : s)
-            output.push_back(triplets);
-        return output;
+        return answer;      //Return the answer vector.
     }
 };
