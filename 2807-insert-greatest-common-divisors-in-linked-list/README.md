@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/insert-greatest-common-divisors-in-linked-list/">2807. Insert Greatest Common Divisors in Linked List</a></h2><h3>Medium</h3><hr><div><p>Given the head of a linked list <code>head</code>, in which each node contains an integer value.</p>
+<h2><a href="https://leetcode.com/problems/insert-greatest-common-divisors-in-linked-list">2807. Insert Greatest Common Divisors in Linked List</a></h2><h3>Medium</h3><hr><p>Given the head of a linked list <code>head</code>, in which each node contains an integer value.</p>
 
 <p>Between every pair of adjacent nodes, insert a new node with a value equal to the <strong>greatest common divisor</strong> of them.</p>
 
@@ -8,8 +8,9 @@
 
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
-<img alt="" src="https://assets.leetcode.com/uploads/2023/07/18/ex1_copy.png" style="width: 641px; height: 181px;">
-<pre><strong>Input:</strong> head = [18,6,10,3]
+<img alt="" src="https://assets.leetcode.com/uploads/2023/07/18/ex1_copy.png" style="width: 641px; height: 181px;" />
+<pre>
+<strong>Input:</strong> head = [18,6,10,3]
 <strong>Output:</strong> [18,6,6,2,10,1,3]
 <strong>Explanation:</strong> The 1<sup>st</sup> diagram denotes the initial linked list and the 2<sup>nd</sup> diagram denotes the linked list after inserting the new nodes (nodes in blue are the inserted nodes).
 - We insert the greatest common divisor of 18 and 6 = 6 between the 1<sup>st</sup> and the 2<sup>nd</sup> nodes.
@@ -19,8 +20,9 @@ There are no more adjacent nodes, so we return the linked list.
 </pre>
 
 <p><strong class="example">Example 2:</strong></p>
-<img alt="" src="https://assets.leetcode.com/uploads/2023/07/18/ex2_copy1.png" style="width: 51px; height: 191px;">
-<pre><strong>Input:</strong> head = [7]
+<img alt="" src="https://assets.leetcode.com/uploads/2023/07/18/ex2_copy1.png" style="width: 51px; height: 191px;" />
+<pre>
+<strong>Input:</strong> head = [7]
 <strong>Output:</strong> [7]
 <strong>Explanation:</strong> The 1<sup>st</sup> diagram denotes the initial linked list and the 2<sup>nd</sup> diagram denotes the linked list after inserting the new nodes.
 There are no pairs of adjacent nodes, so we return the initial linked list.
@@ -33,4 +35,3 @@ There are no pairs of adjacent nodes, so we return the initial linked list.
 	<li>The number of nodes in the list is in the range <code>[1, 5000]</code>.</li>
 	<li><code>1 &lt;= Node.val &lt;= 1000</code></li>
 </ul>
-</div>
