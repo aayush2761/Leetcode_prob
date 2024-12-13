@@ -13,6 +13,8 @@ public:
             if (i + k <= n) {  
                 if (hashs == hashValue) {
                     res = s.substr(i, k);
+                    // not returning because we need first substr
+
                 }
                 hashs = (hashs - (s[i + k - 1] - 'a' + 1) * powerK % mod + mod) % mod;
             }
@@ -24,3 +26,12 @@ public:
         return rabinKarp(s, power, mod, k, hashValue);
     }
 };
+// Why can't we go left-to-right, and use inverse modulo to do the division? 
+// The reason is that inverse modulo may not exist for a given power and modulo.
+// here modulo can be such a number that co exists factor with the comnputed hash value and thus we cannot find the 
+// modulo therefore right to left :) // galat hai ZZZ!!!
+
+
+
+// https://medium.com/coding-interview-preparation/leetcode-a-rolling-hash-coding-problem-ec43d415c72c
+// better explainmation why to use reverse 
