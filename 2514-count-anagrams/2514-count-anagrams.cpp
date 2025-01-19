@@ -1,44 +1,61 @@
+#define ll long long 
 class Solution {
 public:
-    int countAnagrams(string str) {
-        // Sliding window 
-        // Find spaces 
-        // Use factorial of len divided by repeating number 
-        int res = 1;  // Initialize to 1 for multiplication
-        int i = 0, j = 0;
-        while (i < str.size()) {
-            if (str[i] == ' ') {
-                res *= helper(str.substr(j, i - j));
-                j = i + 1;  // Move j to the next character after the space
-            }
-            i++;
+    map<char,int> mp;
+    bool flag = false;
+    const int M = 1e9 + 7;
+    ll powermod(ll x, ll y, ll p) {
+        ll res = 1;
+        x = x % p;
+        if (x == 0) return 0;
+        while (y > 0) {
+            if (y & 1) res = (res * x) % p;
+            y = y >> 1;
+            x = (x * x) % p;
         }
-        if (j < str.size()) res *= helper(str.substr(j, i - j));  // Handle the last word
-
         return res;
     }
 
-private:
-    int helper(string s) {
-        int len = s.size();
-        unordered_map<char, int> mp;
-        for (auto i : s) {
-            mp[i]++;
+    ll fact[1000004], modinv[1000004];
+    void precomp() {
+        modinv[0] = fact[0] = 1;
+        for (ll i = 1; i <= 1000000; i++) {
+            fact[i] = (fact[i - 1] * i) % M;
+            modinv[i] = powermod(fact[i], M - 2, M);
         }
-        unsigned long long temp = 1;
-        for (auto i : mp) {
-            temp *= factorialIterative(i.second);
-        }
-        unsigned long long num = factorialIterative(len);
-        return num / temp;
     }
-
-private:
-    unsigned long long factorialIterative(int n) {
-        unsigned long long result = 1;
-        for (int i = 1; i <= n; ++i) {
-            result *= i;
+   
+    int countAnagrams(string s) {
+        if (!flag) {
+            precomp();
+            flag = true;
         }
-        return result;
+
+        vector<string> v;
+        stringstream ss(s);
+        string word;
+
+        // Using stringstream for better handling of spaces
+        while (ss >> word) {
+            v.push_back(word);
+        }
+
+        long long res = 1;
+        for (int i = 0; i < v.size(); i++) {
+            mp.clear();
+            for (auto ch : v[i]) 
+                mp[ch]++;
+            
+            long long num = fact[v[i].size()];
+            long long deno = 1;
+            
+            for (auto p : mp) {
+                deno = (deno * modinv[p.second]) % M;
+            }
+
+            res = (res * ((num * deno) % M)) % M;
+        }
+
+        return res;
     }
 };
