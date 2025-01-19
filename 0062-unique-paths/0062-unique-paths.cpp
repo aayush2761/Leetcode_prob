@@ -1,17 +1,13 @@
 class Solution {
 public:
-    int totalPath(int i, int j , vector<vector<int>>&dp){
-        if(i==0 && j==0) return 1;
-        if(i<0 || j<0) return 0;
-        if(dp[i][j]!=-1) return dp[i][j];
-
-        int up= totalPath(i-1,j,dp);
-        int left= totalPath(i,j-1,dp);
-        return dp[i][j]= up+ left;
-
-    } 
     int uniquePaths(int m, int n) {
-        vector<vector<int>>dp(m, vector<int>(n,-1));
-        return totalPath(m-1,n-1,dp);
+        long long  res=1;
+        int r= m-1;
+        int d= n-1;
+        int total = r+d;
+        for(int i=1;i<=(min(r,d));i++){
+            res=(res*(total-i+1))/i ;
+        }
+        return res;
     }
 };
