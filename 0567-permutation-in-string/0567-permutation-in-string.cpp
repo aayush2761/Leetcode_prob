@@ -1,33 +1,32 @@
 class Solution {
 public:
-    bool arePermutations(const string& str1, const string& str2) {
-    if (str1.length() != str2.length()) return false;
-    int charCount[256] = {0}; 
-    for (char c : str1) {
-        charCount[c]++;
+    bool check(unordered_map<char,int>&mp1, unordered_map<char,int>&mp2){
+        for(auto it: mp1){
+            if(mp2.find(it.first)==mp2.end())return 0;
+            if(it.second!= mp2[it.first])return 0;
+        }
+        return 1;
     }
-    for (char c : str2) {
-        charCount[c]--;
-        if (charCount[c] < 0) return false;
-    }
-
-    return true;
-}
     bool checkInclusion(string s1, string s2) {
-        int s = s1.size();
+        int n= s1.size();
+        unordered_map<char,int>mp1, mp2;
+        for(auto it : s1){
+            mp1[it]++;
+        }
         int i=0,j=0;
         while(i<s2.size()){
-        
-            if(i-j+1==s){
-                string temp= s2.substr(j,s);
-                j++;
-                // cout<<temp<<endl;
-                if(arePermutations(temp, s1)) return true;
-                
+            mp2[s2[i]]++;
+            if(i-j+1==n){
+                if(check(mp1,mp2))return true;
+                else{
+                    mp2[s2[j]]--;
+                    if(mp2[s2[j]]==0)mp2.erase(s2[j]);
+                    j++;
+                }
             }
             i++;
         }
-
-        return false;
+        
+    return 0;
     }
 };
