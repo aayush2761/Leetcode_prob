@@ -1,31 +1,31 @@
 class Solution {
 public:
-    struct comparator {
-        bool operator()(const pair<int, int> &a, const pair<int, int> &b) {
-            if (a.first == b.first) 
-                return a.second > b.second;  // Lesser index has higher priority
-            return a.first < b.first;  // Max element has higher priority
-        }
-    };
+    int solve(vector<int>& t){
+       int res = 0;
+        int n = t.size();
+        stack<pair<int, int>> st;
 
-    int largestRectangleArea(vector<int>& heights) {
-        priority_queue<pair<int, int>, vector<pair<int, int>>, comparator> pq;
-        int n = heights.size();
-        int res = 0;
         for (int i = 0; i < n; i++) {
-            while (!pq.empty() && pq.top().first > heights[i]) {
-                auto x = pq.top();
-                pq.pop();
-                res = max(res, x.first * (i - x.second));
+            int start = i;
+            while (!st.empty() && st.top().first > t[i]) {
+                auto [height, idx] = st.top();
+                st.pop();
+                res = max(res, height * (i - idx));
+                start = idx;
             }
-            pq.push({heights[i], i});
-        }
-        while (!pq.empty()) {
-            auto x = pq.top();
-            pq.pop();
-            res = max(res, x.first * (n - x.second));
+            st.push({t[i], start});
+            res = max(res, t[i] * (i - start + 1));
         }
 
         return res;
+    }
+    int largestRectangleArea(vector<int>& t) {
+        int n = t.size();
+        int res1= solve(t);
+        reverse(t.begin(),t.end());
+        int res2= solve(t);
+         int d= *min_element(t.begin(),t.end());
+         int c= *max_element(t.begin(),t.end());
+         return max({res1, res2,c,d*n});
     }
 };
